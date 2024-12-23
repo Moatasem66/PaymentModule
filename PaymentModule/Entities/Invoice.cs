@@ -2,7 +2,7 @@
 /// <summary>
 /// this entity for Invoice to Patiant.
 /// Contain  properties Id , Date , Status , TotalAmount , FinalAmount , PatiantId. 
-/// FinalAmount = TotalAmount -  Discount.
+/// FinalAmount = TotalAmount -  TotalAmount * PresentageFrom Discount.
 /// </summary>
 public class Invoice
 {

@@ -29,6 +29,7 @@ namespace PaymentModule
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             builder.Services.AddScoped<IInvoiceService , InvoiceService>();
+            builder.Services.AddScoped<IDiscountService, DiscountService>();
             
             
             var app = builder.Build();

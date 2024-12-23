@@ -1,6 +1,9 @@
 
 using Microsoft.EntityFrameworkCore;
 using PaymentModule.Context;
+using PaymentModule.Contracts;
+using PaymentModule.Services;
+using System;
 using System.Reflection;
 
 namespace PaymentModule
@@ -18,13 +21,16 @@ namespace PaymentModule
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            /// <summary>Register AutoMapper in Container</summary>
+            builder.Services.AddDbContext<AppDbContext>(
+                o => o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+               
+                
+
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-            /// <summary>Register DBContext to Container </summary>
-            builder.Services.AddDbContext<ApplicationDBContext>(option => 
-            option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+            builder.Services.AddScoped<IInvoiceService , InvoiceService>();
+            
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

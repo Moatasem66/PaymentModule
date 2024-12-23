@@ -1,15 +1,15 @@
 ﻿namespace PaymentModule.Entities;
 /// <summary>
-/// this entity relative to Invoice to Patiant 
-/// Contain Id , Date , Status , TotalAmount , FinalAmount , PatiantId
-/// FinalAmount = TotalAmount -  Discount 
+/// this entity for Invoice to Patiant.
+/// Contain  properties Id , Date , Status , TotalAmount , FinalAmount , PatiantId. 
+/// FinalAmount = TotalAmount -  Discount.
 /// </summary>
 public class Invoice
 {
     public int Id { get; set; }
     public DateOnly Date { get; set; }
-    public string Status { get; set; } = string.Empty;
+    public string Status { get; set; } 
     public decimal TotalAmount { get; set; }
     public decimal FinalAmount { get; set; }
-    public int PatiantId { get; set; }
+    public int PatientId { get; set; }
 }

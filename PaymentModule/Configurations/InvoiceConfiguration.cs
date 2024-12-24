@@ -14,5 +14,12 @@ public class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
         builder
           .Property(i => i.FinalAmount)
           .HasColumnType("decimal(10,2)");
+
+        builder
+            .HasOne(x => x.Discount)
+            .WithMany(i => i.Invoices)
+            .HasForeignKey(d => d.DiscountId)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

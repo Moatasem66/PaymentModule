@@ -19,9 +19,10 @@ public class InvoiceService : IInvoiceService
     }
 
     /// <inheritdoc/>
-    public async Task<InvoiceResponseDTO?> GetInvoiceByIdAsync(int Id)
+    public async Task<InvoiceResponseDTO?> GetInvoiceByIdAsync(int id)
     {
-        var Response = await _context.Invoices.FindAsync(Id);
+        var Response = await _context.Invoices.Include(d => d.Discount)
+                                              .FirstOrDefaultAsync(x => x.Id == id);
         return Response == null ? null : _mapper.Map<InvoiceResponseDTO>(Response);
     }
     /// <inheritdoc/>
@@ -46,8 +47,7 @@ public class InvoiceService : IInvoiceService
         }
         catch (Exception ex)
         {
-             Console.WriteLine(ex.ToString());
-            throw new Exception(ex.ToString());
+            throw new Exception(ex.Message);
         }
     }
     /// <inheritdoc/>
@@ -64,8 +64,7 @@ public class InvoiceService : IInvoiceService
         }
         catch (Exception ex)
         {
-            return false;
-            throw new Exception(ex.ToString());
+            throw new Exception(ex.Message);
         }
     }
     /// <inheritdoc/>
@@ -83,7 +82,7 @@ public class InvoiceService : IInvoiceService
         }
         catch (Exception ex)
         {
-            throw new Exception(ex.ToString());
+            return false;
         }
     }
    

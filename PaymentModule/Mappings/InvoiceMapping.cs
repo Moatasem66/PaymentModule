@@ -13,7 +13,8 @@ public class InvoiceMapping : Profile
     public InvoiceMapping()
     {
         /// <summary>Create Map from Request to Invoice </summary>
-        CreateMap<InvoiceRequestDTO, Invoice>();
+        CreateMap<InvoiceRequestDTO, Invoice>().ReverseMap();
+       
 
         /// <summary>Create Map from Invoice to Response </summary>
         CreateMap<Invoice, InvoiceResponseDTO>().ReverseMap();

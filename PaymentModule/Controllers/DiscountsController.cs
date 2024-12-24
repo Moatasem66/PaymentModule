@@ -65,7 +65,7 @@ public class DiscountsController : ControllerBase
     {
         var IsUpdated = await _discountService.UpdateDiscountAsync(Id, Request);
 
-        return IsUpdated ? NoContent() : BadRequest();
+        return IsUpdated ? NoContent() : NotFound();
     }
     /// <summary>
     /// Action Method To Delete Discount by id 
@@ -78,6 +78,6 @@ public class DiscountsController : ControllerBase
     {
         var IsDeleted = await _discountService.DeleteDiscountAsync(Id);
 
-        return IsDeleted ? NoContent() : BadRequest();
+        return IsDeleted ? NoContent() : NotFound();
     }
 }

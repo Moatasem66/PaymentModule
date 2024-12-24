@@ -9,4 +9,5 @@ public class Discount
     public string Desciption { get; set; }
     public decimal Presentage { get; set; }
     public string Condation { get; set; }
+    public virtual ICollection<Invoice>? Invoices { get; set; } 
 }

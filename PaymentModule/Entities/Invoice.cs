@@ -12,4 +12,7 @@ public class Invoice
     public decimal TotalAmount { get; set; }
     public decimal FinalAmount { get; set; }
     public int PatientId { get; set; }
+    public int DiscountId { get; set; }
+    public virtual Discount? Discount { get; set; }
+    public virtual ICollection<Payment>? Payments { get;set; }
 }

@@ -16,6 +16,8 @@ public class AppDbContext : DbContext
   
     public DbSet<Invoice> Invoices { get; set; }
     public DbSet<Discount> Discounts { get; set; }
+    public DbSet<Payment> Payments { get; set; }
+    public DbSet<PaymentHistory> PaymentHistories { get; set; }
     /// <summary>
     /// override OnModelCreating to apply my configuration for entities .
     /// </summary>

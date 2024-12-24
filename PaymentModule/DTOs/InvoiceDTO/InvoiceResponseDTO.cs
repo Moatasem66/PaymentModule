@@ -1,4 +1,6 @@
-﻿namespace PaymentModule.DTOs.InvoiceDTO;
+﻿using PaymentModule.DTOs.DiscountDTO;
+
+namespace PaymentModule.DTOs.InvoiceDTO;
 
 public class InvoiceResponseDTO
 {
@@ -8,4 +10,6 @@ public class InvoiceResponseDTO
     public decimal TotalAmount { get; set; }
     public decimal FinalAmount { get; set; }
     public int PatientId { get; set; }
+    public int DiscountId { get; set; }
+    public virtual DiscountResponseDTO? Discount {get; set;}
 }

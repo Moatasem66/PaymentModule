@@ -59,7 +59,7 @@ public class InvoicesController(IInvoiceService invoiceService) : ControllerBase
     {
         var IsUpdated = await _invoiceService.UpdateInvoiceAsync(Id, Request);
 
-        return IsUpdated ? NoContent() : BadRequest();
+        return IsUpdated ? NoContent() : NotFound();
     }
     /// <summary>
     /// Action Method To Delete Invoice by id 
@@ -72,6 +72,6 @@ public class InvoicesController(IInvoiceService invoiceService) : ControllerBase
     {
         var IsDeleted = await _invoiceService.DeleteInvoiceAsync(Id);
 
-        return IsDeleted ? NoContent() : BadRequest();
+        return IsDeleted ? NoContent() : NotFound();
     }
 }

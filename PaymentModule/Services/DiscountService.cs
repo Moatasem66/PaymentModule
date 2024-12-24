@@ -46,8 +46,7 @@ public class DiscountService : IDiscountService
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.ToString());
-            throw new Exception(ex.ToString());
+            throw new Exception(ex.Message);
         }
     }
     /// <inheritdoc/>
@@ -64,8 +63,7 @@ public class DiscountService : IDiscountService
         }
         catch (Exception ex)
         {
-            return false;
-            throw new Exception(ex.ToString());
+            throw new Exception(ex.Message);
         }
     }
     /// <inheritdoc/>
@@ -83,7 +81,7 @@ public class DiscountService : IDiscountService
         }
         catch (Exception ex)
         {
-            throw new Exception(ex.ToString());
+            throw new Exception(ex.Message);
         }
     }
 

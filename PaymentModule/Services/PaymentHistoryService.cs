@@ -30,6 +30,13 @@ public class PaymentHistoryService : IPaymentHistoryService
         return Response == null ? null : _mapper.Map<PaymentHistoryResponseDTO>(Response);
     }
     /// <inheritdoc/>
+    public async Task<List<PaymentHistoryResponseDTO>?> GetPaymentHistoryByPaymentIdAsync(int paymentId)
+    {
+        var PaymentHistoryCollection = await _context.PaymentHistories.Where( p => p.PaymentId == paymentId).ToListAsync();
+
+        return PaymentHistoryCollection == null ? null : _mapper.Map<List<PaymentHistoryResponseDTO>>(PaymentHistoryCollection);
+    }
+    /// <inheritdoc/>
     public async Task<List<PaymentHistoryResponseDTO>> GetAllPaymentHistoriesAsync()
     {
         var ResponseLst = await _context.PaymentHistories.Include(x=>x.Payment).ToListAsync();

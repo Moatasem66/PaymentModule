@@ -17,6 +17,6 @@ public class PaymentHistoryMapping : Profile
         CreateMap<PaymentHistoryRequestDTO, PaymentHistory>().ReverseMap();
 
         /// <summary>Create Map from Payment to Response </summary>
-        CreateMap<PaymentHistory, PaymentHistoryResponseDTO>();
+        CreateMap<PaymentHistory, PaymentHistoryResponseDTO>().ReverseMap();
     }
 }

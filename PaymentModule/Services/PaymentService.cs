@@ -4,6 +4,7 @@ using PaymentModule.Context;
 using PaymentModule.Entities;
 using PaymentModule.Contracts;
 using PaymentModule.DTOs.PaymentDTO;
+using PaymentModule.DTOs.InvoiceDTO;
 namespace PaymentModule.Services;
 
 public class PaymentService : IPaymentService
@@ -23,6 +24,14 @@ public class PaymentService : IPaymentService
         var Response = await _context.Payments.Include(x => x.Invoice).FirstOrDefaultAsync(x => x.Id == id);
        
         return Response == null ? null : _mapper.Map<PaymentResponseDTO>(Response);
+    }
+    /// <inheritdoc/>
+    public async Task<List<PaymentResponseDTO>?> GetPaymentByInvoiceIdAsync(int invoiceId)
+    {
+        var PaymentCollection = await _context.Payments.Where(x => x.InvoiceId == invoiceId).ToListAsync() ;
+
+        return PaymentCollection == null ? null : _mapper.Map<List<PaymentResponseDTO>?>(PaymentCollection);
+        
     }
     /// <inheritdoc/>
     public async Task<List<PaymentResponseDTO>> GetAllPaymentsAsync()

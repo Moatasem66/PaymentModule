@@ -12,6 +12,12 @@ public interface IPaymentHistoryService
     /// <returns>PaymentHistoryResponseDTO</returns>
     Task<PaymentHistoryResponseDTO?> GetPaymentHistoryByIdAsync(int id);
     /// <summary>
+    /// method to get all PaymentHistorys by PaymentId
+    /// </summary>
+    /// <param name="paymentId"></param>
+    /// <returns>List of PaymentHistorys response </returns>
+    Task<List<PaymentHistoryResponseDTO>?> GetPaymentHistoryByPaymentIdAsync(int paymentId);
+    /// <summary>
     /// method to get all PaymentHistorys 
     /// </summary>
     /// <returns>List of PaymentHistorys response </returns>

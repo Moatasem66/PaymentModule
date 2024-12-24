@@ -23,6 +23,18 @@ public class InvoicesController(IInvoiceService invoiceService) : ControllerBase
         return Response == null ? BadRequest() : Ok(Response);
     }
     /// <summary>
+    /// action method to get invoice by id if not found return bad request 
+    /// </summary>
+    /// <param name="discountId"></param>
+    /// <returns></returns>
+    [HttpGet]
+    [Route("getinvoicebydiscountid/{discountId}")]
+    public async Task<IActionResult> GetInvoiceByDiscountIdId(int discountId)
+    {
+        var Response = await _invoiceService.GetInvoiceByDiscountIdAsync(discountId);
+        return Response == null ? BadRequest() : Ok(Response);
+    }
+    /// <summary>
     /// action method to get list of invoices if count of list equal 0 return bad request 
     /// </summary>
     /// <returns></returns>

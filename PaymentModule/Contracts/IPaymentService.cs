@@ -12,6 +12,12 @@ public interface IPaymentService
     /// <returns>PaymentResponseDTO</returns>
     Task<PaymentResponseDTO?> GetPaymentByIdAsync(int id);
     /// <summary>
+    /// method to get Payment by Invoice Id if not found return null 
+    /// </summary>
+    /// <param name="Id"></param>
+    /// <returns>List of PaymentResponseDTO</returns>
+    Task<List<PaymentResponseDTO>?> GetPaymentByInvoiceIdAsync(int invoiceId);
+    /// <summary>
     /// method to get all Payments 
     /// </summary>
     /// <returns>List of Payments response </returns>

@@ -85,5 +85,11 @@ public class InvoiceService : IInvoiceService
             return false;
         }
     }
-   
+
+    public async Task<List<InvoiceResponseDTO>?> GetInvoiceByDiscountIdAsync(int discountId)
+    {
+        var InvoiceCollection  = await _context.Invoices.Where(x => x.DiscountId == discountId).ToListAsync();
+
+        return InvoiceCollection == null ? null : _mapper.Map<List<InvoiceResponseDTO>>(InvoiceCollection)!;
+    }
 }

@@ -30,6 +30,18 @@ public class PaymentsController : ControllerBase
         return Response == null ? BadRequest() : Ok(Response);
     }
     /// <summary>
+    /// action method to get Payment by Invoice id if not found return bad request 
+    /// </summary>
+    /// <param name="invoiceId"></param>
+    /// <returns>List<PaymentResponse></returns>
+    [HttpGet]
+    [Route("getPaymentbyinvoiceid")]
+    public async Task<IActionResult> GetPaymentByInvoiceId(int invoiceId)
+    {
+        var Response = await _paymentService.GetPaymentByInvoiceIdAsync(invoiceId);
+        return Response == null ? BadRequest() : Ok(Response);
+    }
+    /// <summary>
     /// action method to get list of Payments if count of list equal 0 return bad request 
     /// </summary>
     /// <returns></returns>

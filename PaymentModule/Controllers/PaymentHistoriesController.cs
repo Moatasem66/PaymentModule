@@ -30,6 +30,18 @@ public class PaymentHistoriesController : ControllerBase
         return Response == null ? BadRequest() : Ok(Response);
     }
     /// <summary>
+    /// action method to get Payment history by payment id if not found return bad request 
+    /// </summary>
+    /// <param name="paymentId"></param>
+    /// <returns></returns>
+    [HttpGet]
+    [Route("getpaymenthistorybypaymentid")]
+    public async Task<IActionResult> GetPaymentHistoryBypaymentIdAsync(int paymentId)
+    {
+        var Response = await _paymentHistoryService.GetPaymentHistoryByPaymentIdAsync(paymentId);
+        return Response == null ? BadRequest() : Ok(Response);
+    }
+    /// <summary>
     /// action method to get list of Payments if count of list equal 0 return bad request 
     /// </summary>
     /// <returns></returns>

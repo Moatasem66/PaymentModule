@@ -10,6 +10,12 @@ public interface IInvoiceService
     /// <returns>InvoiceResponseDTO</returns>
     Task<InvoiceResponseDTO?> GetInvoiceByIdAsync(int Id);
     /// <summary>
+    /// method to get Invoice by DiscountId if not found return null 
+    /// </summary>
+    /// <param name="discountId"></param>
+    /// <returns>InvoiceResponseDTO</returns>
+    Task<List<InvoiceResponseDTO>?> GetInvoiceByDiscountIdAsync(int discountId);
+    /// <summary>
     /// method to get all invoices 
     /// </summary>
     /// <returns>List of invoices response </returns>

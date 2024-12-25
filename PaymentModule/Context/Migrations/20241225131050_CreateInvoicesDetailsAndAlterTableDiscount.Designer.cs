@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PaymentModule.Context;
 
@@ -11,9 +12,11 @@ using PaymentModule.Context;
 namespace PaymentModule.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241225131050_CreateInvoicesDetailsAndAlterTableDiscount")]
+    partial class CreateInvoicesDetailsAndAlterTableDiscount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,9 +63,9 @@ namespace PaymentModule.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 12, 25, 15, 43, 4, 623, DateTimeKind.Local).AddTicks(2868));
+                        .HasDefaultValue(new DateTime(2024, 12, 25, 15, 10, 49, 660, DateTimeKind.Local).AddTicks(574));
 
-                    b.Property<int?>("DiscountId")
+                    b.Property<int>("DiscountId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("FinalAmount")

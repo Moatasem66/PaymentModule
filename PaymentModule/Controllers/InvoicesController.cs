@@ -20,7 +20,7 @@ public class InvoicesController(IInvoiceService invoiceService) : ControllerBase
     public async Task<IActionResult> GetInvoiceById(int Id)
     {
         var Response = await _invoiceService.GetInvoiceByIdAsync(Id);
-        return Response == null ? BadRequest() : Ok(Response);
+        return Response == null ? NotFound() : Ok(Response);
     }
     /// <summary>
     /// action method to get invoice by id if not found return bad request 

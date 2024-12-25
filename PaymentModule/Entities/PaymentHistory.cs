@@ -1,8 +1,8 @@
 ﻿namespace PaymentModule.Entities;
 /// <summary>
 /// Entity PaymentHistory to Paymnet .
-/// Contain  properties Id , ActionDate , Status , Comment 
-/// there are relation with Payment One-to-many 
+/// Contain properties Id , ActionDate , Status , Comment , Payment Id is foreign key
+/// there are relation with Payment One-to-many from Payment History to Payment 
 /// </summary>
 public class PaymentHistory
 {

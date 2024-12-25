@@ -19,13 +19,13 @@ public class DiscountsController : ControllerBase
     /// <summary>
     /// action method to get Discount by id if not found return bad request 
     /// </summary>
-    /// <param name="Id"></param>
+    /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet]
-    [Route("getdiscountbyid/{Id}")]
-    public async Task<IActionResult> GetDiscountById(int Id)
+    [Route("getdiscountbyid/{id}")]
+    public async Task<IActionResult> GetDiscountById(int id)
     {
-        var Response = await _discountService.GetDiscountByIdAsync(Id);
+        var Response = await _discountService.GetDiscountByIdAsync(id);
         return Response == null ? BadRequest() : Ok(Response);
     }
     /// <summary>
@@ -47,36 +47,37 @@ public class DiscountsController : ControllerBase
     /// <returns></returns>
     [HttpPost]
     [Route("creatediscount")]
-    public async Task<IActionResult> CreateDiscountAsync(DiscountRequestDTO request)
+    public async Task<IActionResult> CreateDiscountAsync(DiscountRequestDTO discountRequest)
     {
-        var Response = await _discountService.CreateDiscountAsync(request);
+        var Response = await _discountService.CreateDiscountAsync(discountRequest);
 
         return Response == null ? BadRequest() : Ok(Response);
     }
     /// <summary>
-    /// Action Method to update Discount if not found entity for the id return false bad request 
+    /// Action Method to update Discount if not found entity for the id return NotFound
     /// </summary>
-    /// <param name="Id"></param>
-    /// <param name="Request"></param>
+    /// <param name="id"></param>
+    /// <param name="discountRequest"></param>
     /// <returns></returns>
     [HttpPut]
-    [Route("updatediscount/{Id}")]
-    public async Task<IActionResult> UpdateDiscountAsync(int Id, DiscountRequestDTO Request)
+    [Route("updatediscount/{id}")]
+    public async Task<IActionResult> UpdateDiscountAsync(int id, DiscountRequestDTO discountRequest)
     {
-        var IsUpdated = await _discountService.UpdateDiscountAsync(Id, Request);
+        if(!ModelState.IsValid)
+            return NotFound();
+        var IsUpdated = await _discountService.UpdateDiscountAsync(id, discountRequest);
 
         return IsUpdated ? NoContent() : NotFound();
     }
     /// <summary>
-    /// Action Method To Delete Discount by id 
+    /// Action Method To Delete Discount by id if not found entity for the id return NotFound
     /// </summary>
-    /// <param name="Id"></param>
-    /// <returns></returns>
+    /// <param name="id"></param>
     [HttpDelete]
-    [Route("deleteediscount/{Id}")]
-    public async Task<IActionResult> DeleteDiscountAsync(int Id)
+    [Route("deleteediscount/{id}")]
+    public async Task<IActionResult> DeleteDiscountAsync(int id)
     {
-        var IsDeleted = await _discountService.DeleteDiscountAsync(Id);
+        var IsDeleted = await _discountService.DeleteDiscountAsync(id);
 
         return IsDeleted ? NoContent() : NotFound();
     }

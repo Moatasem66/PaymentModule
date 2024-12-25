@@ -2,7 +2,7 @@
 /// <summary>
 /// this entity for Payement to Invoice .
 /// Contain  properties Id , Date , AmountPaid , PaymnetMethod 
-/// there are relation with invoice One-to-many 
+/// the relation with invoice One-to-many  from Payment to invoice 
 /// </summary>
 public class Payment
 {

@@ -17,7 +17,7 @@ public class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
             .Property(x => x.CreatedOn)
             .HasDefaultValue(DateTime.Now);
         /// <summary>
-        ///This ensures that the column will store up to 10 digits in total, with 2 digits after the decimal point.
+        /// This ensures that the column will store up to 10 digits in total, with 2 digits after the decimal point.
         ///</ summary>
         builder
            .Property(i => i.TotalAmount)
@@ -28,7 +28,7 @@ public class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
           .HasColumnType("decimal(10,2)");
         /// <summary>
         /// The relationship is a one-to-many from Discount to Invoice.
-        /// Cannot delete discount restrict on this relation 
+        /// Cannot delete discount restrict on Delete Behavior 
         /// </summary>
         builder
             .HasOne(x => x.Discount)

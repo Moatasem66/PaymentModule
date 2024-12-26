@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PaymentModule.Entities;
-using System.Reflection.Emit;
 namespace PaymentModule.Configurations;
+/// <summary>
+/// Configuration to InvoiceDetail Entity 
+/// </summary>
 public class InvoiceDetailConfiguration : IEntityTypeConfiguration<InvoiceDetail>
 {
     public void Configure(EntityTypeBuilder<InvoiceDetail> builder)

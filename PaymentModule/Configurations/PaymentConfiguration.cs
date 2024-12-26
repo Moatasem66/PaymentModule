@@ -11,7 +11,7 @@ public class PaymentConfiguration : IEntityTypeConfiguration<Payment>
     public void Configure(EntityTypeBuilder<Payment> builder)
     {
         /// <summary>
-        /// This ensures that the column will store up to 10 digits in total, with 2 digits after the decimal point.
+        /// This ensures that the column will store up to 10 digits in total, with 3 digits after the decimal point.
         ///</ summary
         builder
          .Property(i => i.AmountPaid)
@@ -19,7 +19,8 @@ public class PaymentConfiguration : IEntityTypeConfiguration<Payment>
 
 
         /// <summary>
-        /// relation One to Many from Payment To Invoice 
+        /// relation One to Many from Payment To Invoice
+        /// onDelete Behavior Restrict  mean connot delete 
         /// </summary>
         builder
             .HasOne(i => i.Invoice)

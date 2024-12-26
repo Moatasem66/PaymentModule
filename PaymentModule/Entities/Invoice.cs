@@ -10,7 +10,7 @@
 public class Invoice
 {
     public int Id { get; set; }
-    public DateTime CreatedOn { get; set; } 
+    public DateTime CreatedOn { get; set; }  = DateTime.UtcNow;
     public string Status { get; set; } 
     public decimal TotalAmount { get; set; }
     public decimal FinalAmount { get; set; }
@@ -19,4 +19,5 @@ public class Invoice
     public virtual Discount? Discount { get; set; }
     public virtual ICollection<Payment>? Payments { get;set; }
     public virtual ICollection<InvoiceDetail>? InvoiceDetails { get;set; }
+    public virtual ICollection<Refund>? Refunds { get;set; }
 }

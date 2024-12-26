@@ -31,6 +31,7 @@ namespace PaymentModule
             builder.Services.AddScoped<IInvoiceService , InvoiceService>();
             builder.Services.AddScoped<IPaymentService, PaymentService>();
             builder.Services.AddScoped<IPaymentHistoryService, PaymentHistoryService>();
+            builder.Services.AddScoped<IRefundService, RefundService>();
 
 
             var app = builder.Build();

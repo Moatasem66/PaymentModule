@@ -46,7 +46,7 @@ namespace PaymentModule.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Discounts");
+                    b.ToTable("Discounts", (string)null);
                 });
 
             modelBuilder.Entity("PaymentModule.Entities.Invoice", b =>
@@ -80,7 +80,7 @@ namespace PaymentModule.Migrations
 
                     b.HasIndex("DiscountId");
 
-                    b.ToTable("Invoices");
+                    b.ToTable("Invoices", (string)null);
                 });
 
             modelBuilder.Entity("PaymentModule.Entities.InvoiceDetail", b =>
@@ -111,7 +111,7 @@ namespace PaymentModule.Migrations
 
                     b.HasIndex("InvoiceId");
 
-                    b.ToTable("InvoiceDetails");
+                    b.ToTable("InvoiceDetails", (string)null);
                 });
 
             modelBuilder.Entity("PaymentModule.Entities.Payment", b =>
@@ -139,7 +139,7 @@ namespace PaymentModule.Migrations
 
                     b.HasIndex("InvoiceId");
 
-                    b.ToTable("Payments");
+                    b.ToTable("Payments", (string)null);
                 });
 
             modelBuilder.Entity("PaymentModule.Entities.PaymentHistory", b =>
@@ -168,7 +168,7 @@ namespace PaymentModule.Migrations
 
                     b.HasIndex("PaymentId");
 
-                    b.ToTable("PaymentHistories");
+                    b.ToTable("PaymentHistories", (string)null);
                 });
 
             modelBuilder.Entity("PaymentModule.Entities.Refund", b =>
@@ -207,7 +207,7 @@ namespace PaymentModule.Migrations
 
                     b.HasIndex("InvoiceId");
 
-                    b.ToTable("Refunds");
+                    b.ToTable("Refunds", (string)null);
                 });
 
             modelBuilder.Entity("PaymentModule.Entities.Invoice", b =>

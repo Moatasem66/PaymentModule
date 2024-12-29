@@ -53,21 +53,12 @@ public class InvoiceService : IInvoiceService
             Invoice.FinalAmount = CalcFinalAmountForInvoice(invoiceRequest.DiscountId, TotalAmount);
 
             _context.Invoices.Add(Invoice);
-            await _context.SaveChangesAsync();
 
-            var InvoiceDetails = _mapper.Map<List<InvoiceDetail>>(invoiceRequest.InvoiceDetails);
-
-            foreach (var InvoiceDetail in InvoiceDetails)
-            {
-                InvoiceDetail.InvoiceId = Invoice.Id;
-                InvoiceDetail.TotalPrice = InvoiceDetail.Quantity * InvoiceDetail.UnitPrice;
-            }
-
-            _context.InvoiceDetails.AddRange(InvoiceDetails);
             await _context.SaveChangesAsync();
 
             var response = _mapper.Map<InvoiceResponseDTO>(Invoice);
-            response.InvoiceDetails = _mapper.Map<List<InvoiceDetailResponseDTO>>(InvoiceDetails);
+
+            response.InvoiceDetails = await CreateInvoiceDetails(Invoice.Id , invoiceRequest.InvoiceDetails);
 
             return response;
 
@@ -94,24 +85,17 @@ public class InvoiceService : IInvoiceService
             _mapper.Map(invoiceRequest, CurrentInvoice);
 
             var TotalAmount = invoiceRequest.InvoiceDetails.Sum(d => d.Quantity * d.UnitPrice);
+           
             CurrentInvoice.TotalAmount = TotalAmount;
 
             CurrentInvoice.FinalAmount = CalcFinalAmountForInvoice(invoiceRequest.DiscountId, TotalAmount);
 
-
-            var InvoiceDetails = _mapper.Map<List<InvoiceDetail>>(invoiceRequest.InvoiceDetails);
-
-            foreach (var InvoiceDetail in InvoiceDetails)
-            {
-                InvoiceDetail.InvoiceId = id;
-                InvoiceDetail.TotalPrice = InvoiceDetail.Quantity * InvoiceDetail.UnitPrice;
-            }
-
-            _context.InvoiceDetails.AddRange(InvoiceDetails);
             await _context.SaveChangesAsync();
 
             var InvoiceResponse = _mapper.Map<InvoiceResponseDTO>(CurrentInvoice);
-            InvoiceResponse.InvoiceDetails = _mapper.Map<List<InvoiceDetailResponseDTO>>(CurrentInvoice.InvoiceDetails);
+
+            InvoiceResponse.InvoiceDetails = await CreateInvoiceDetails(id, invoiceRequest.InvoiceDetails);
+          
             return true;
         }
         catch (Exception ex)
@@ -137,21 +121,57 @@ public class InvoiceService : IInvoiceService
             return false;
         }
     }
-
+    /// <inheritdoc/>
     public async Task<List<InvoiceResponseDTO>?> GetInvoiceByDiscountIdAsync(int discountId)
     {
         var InvoiceCollection  = await _context.Invoices.Where(x => x.DiscountId == discountId).ToListAsync();
 
         return InvoiceCollection == null ? null : _mapper.Map<List<InvoiceResponseDTO>>(InvoiceCollection)!;
     }
+    /// <summary>
+    /// method to Calc Final Amount After Apply Discount 
+    /// </summary>
+    /// <param name="discountId"></param>
+    /// <param name="TotalAmount"></param>
+    /// <returns></returns>
     private decimal CalcFinalAmountForInvoice(int? discountId , decimal TotalAmount)
     {
-        if (discountId == 0  || discountId == null)
-            return TotalAmount;
-        var CurrentDiscount = _context.Discounts.Find(discountId);
-        if(CurrentDiscount == null)
-            return TotalAmount;
+        try
+        {
+            if (discountId == 0 || discountId == null)
+                return TotalAmount;
+            var CurrentDiscount = _context.Discounts.Find(discountId);
+            if (CurrentDiscount == null)
+                return TotalAmount;
 
-        return CurrentDiscount.Presentage == 0 ? TotalAmount : TotalAmount - (TotalAmount * ( CurrentDiscount.Presentage / 100));
+            return CurrentDiscount.Presentage == 0 ? TotalAmount : TotalAmount - (TotalAmount * (CurrentDiscount.Presentage / 100));
+        }
+        catch (Exception ex )
+        {
+            throw new Exception( $"there Error in Calc Final Amount please check  and the message to this error  : {ex.Message}");
+        }
+        
+    }
+    /// <summary>
+    /// Method to Create Invoice Details take invoice id to add invoiceDetails to this Invoice 
+    /// </summary>
+    /// <param name="invoiceId"></param>
+    /// <param name="invoiceDetailRequests"></param>
+    /// <returns>List of InvoiceDetailResponseDTO</returns>
+    private async Task<List<InvoiceDetailResponseDTO>> CreateInvoiceDetails (int invoiceId, List<InvoiceDetailRequestDTO> invoiceDetailRequests)
+    {
+        var InvoiceDetails = _mapper.Map<List<InvoiceDetail>>(invoiceDetailRequests);
+
+        foreach (var InvoiceDetail in InvoiceDetails)
+        {
+            InvoiceDetail.InvoiceId = invoiceId;
+            InvoiceDetail.TotalPrice = InvoiceDetail.Quantity * InvoiceDetail.UnitPrice;
+        }
+
+        _context.InvoiceDetails.AddRange(InvoiceDetails);
+      
+        await _context.SaveChangesAsync();
+       
+        return _mapper.Map<List<InvoiceDetailResponseDTO>>(InvoiceDetails);
     }
 }

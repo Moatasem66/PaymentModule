@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PaymentModule.Context;
 
@@ -11,9 +12,11 @@ using PaymentModule.Context;
 namespace PaymentModule.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241226135704_UpdateNam")]
+    partial class UpdateNam
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,7 +61,9 @@ namespace PaymentModule.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 12, 26, 15, 57, 3, 997, DateTimeKind.Local).AddTicks(9365));
 
                     b.Property<int?>("DiscountId")
                         .HasColumnType("int");
@@ -125,8 +130,8 @@ namespace PaymentModule.Migrations
                     b.Property<decimal>("AmountPaid")
                         .HasColumnType("decimal(10,3)");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
 
                     b.Property<int>("InvoiceId")
                         .HasColumnType("int");
@@ -150,8 +155,8 @@ namespace PaymentModule.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("ActionDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("ActionDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Comment")
                         .IsRequired()

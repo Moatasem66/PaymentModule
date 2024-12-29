@@ -7,6 +7,10 @@ using PaymentModule.Services;
 namespace PaymentModule.Controllers;
 [Route("api/[controller]")]
 [ApiController]
+
+/// <summary>
+/// Conroller to handle httprequest for disount 
+/// </summary>
 public class DiscountsController : ControllerBase
 {
     private readonly IDiscountService _discountService ;

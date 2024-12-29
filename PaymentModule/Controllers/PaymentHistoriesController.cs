@@ -8,6 +8,10 @@ using PaymentModule.Services;
 namespace PaymentModule.Controllers;
 [Route("api/[controller]")]
 [ApiController]
+
+/// <summary>
+/// Conroller to handle httprequest for Payment History  
+/// </summary>
 public class PaymentHistoriesController : ControllerBase
 {
     private readonly IPaymentHistoryService _paymentHistoryService ;
@@ -35,7 +39,7 @@ public class PaymentHistoriesController : ControllerBase
     /// <param name="paymentId"></param>
     /// <returns></returns>
     [HttpGet]
-    [Route("getpaymenthistorybypaymentid")]
+    [Route("getpaymenthistorybypaymentid/{paymentId}")]
     public async Task<IActionResult> GetPaymentHistoryBypaymentIdAsync(int paymentId)
     {
         var Response = await _paymentHistoryService.GetPaymentHistoryByPaymentIdAsync(paymentId);

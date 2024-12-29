@@ -1,7 +1,9 @@
 ﻿using PaymentModule.DTOs.RefundDTO;
 
 namespace PaymentModule.Contracts;
-
+/// <summary>
+/// Methods related to Refund Enitity 
+/// </summary>
 public interface IRefundService
 {
     /// <summary>

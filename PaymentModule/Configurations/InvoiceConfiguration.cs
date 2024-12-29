@@ -11,11 +11,6 @@ public class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
 {
     public void Configure(EntityTypeBuilder<Invoice> builder)
     {
-        /// <summary>The default value is set to the current date and time (DateTime.Now) when a new entity is created.
-        ///</ summary>
-        builder
-            .Property(x => x.CreatedOn)
-            .HasDefaultValue(DateTime.Now);
         /// <summary>
         /// This ensures that the column will store up to 10 digits in total, with 2 digits after the decimal point.
         ///</ summary>

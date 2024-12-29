@@ -6,7 +6,10 @@ using PaymentModule.DTOs.InvoiceDTO;
 namespace PaymentModule.Controllers;
 [Route("api/[controller]")]
 [ApiController]
-/// <summary> Controller to crud operation in invoice entity </summary>
+
+/// <summary>
+/// Conroller to handle httprequest for Invoice  
+/// </summary>
 public class InvoicesController(IInvoiceService invoiceService) : ControllerBase
 {
     private readonly IInvoiceService _invoiceService = invoiceService;
@@ -16,10 +19,10 @@ public class InvoicesController(IInvoiceService invoiceService) : ControllerBase
     /// <param name="Id"></param>
     /// <returns></returns>
     [HttpGet]
-    [Route("getinvoicebyid/{Id}")]
-    public async Task<IActionResult> GetInvoiceById(int Id)
+    [Route("getinvoicebyid/{id}")]
+    public async Task<IActionResult> GetInvoiceById(int id)
     {
-        var Response = await _invoiceService.GetInvoiceByIdAsync(Id);
+        var Response = await _invoiceService.GetInvoiceByIdAsync(id);
         return Response == null ? NotFound() : Ok(Response);
     }
     /// <summary>
@@ -53,9 +56,9 @@ public class InvoicesController(IInvoiceService invoiceService) : ControllerBase
     /// <returns></returns>
     [HttpPost]
     [Route("createinvoice")]
-    public async Task<IActionResult> CreateInvoiceAsync (InvoiceRequestDTO request )
+    public async Task<IActionResult> CreateInvoiceAsync (InvoiceRequestDTO invoiceRequest)
     {
-        var Response = await _invoiceService.CreateInvoiceAsync(request);
+        var Response = await _invoiceService.CreateInvoiceAsync(invoiceRequest);
 
         return Response == null ?  BadRequest() : Ok(Response);
     }
@@ -66,10 +69,10 @@ public class InvoicesController(IInvoiceService invoiceService) : ControllerBase
     /// <param name="Request"></param>
     /// <returns></returns>
     [HttpPut]
-    [Route("updateinvoice/{Id}")]
-    public async Task<IActionResult> UpdateInvoiceAsync ( int Id , InvoiceRequestDTO Request)
+    [Route("updateinvoice/{id}")]
+    public async Task<IActionResult> UpdateInvoiceAsync ( int id , InvoiceRequestDTO invoiceRequest)
     {
-        var IsUpdated = await _invoiceService.UpdateInvoiceAsync(Id, Request);
+        var IsUpdated = await _invoiceService.UpdateInvoiceAsync(id, invoiceRequest);
 
         return IsUpdated ? NoContent() : NotFound();
     }
@@ -79,10 +82,10 @@ public class InvoicesController(IInvoiceService invoiceService) : ControllerBase
     /// <param name="Id"></param>
     /// <returns></returns>
     [HttpDelete]
-    [Route("deleteeinvoice/{Id}")]
-    public async Task<IActionResult> DeleteInvoiceAsync(int Id)
+    [Route("deleteeinvoice/{id}")]
+    public async Task<IActionResult> DeleteInvoiceAsync(int id)
     {
-        var IsDeleted = await _invoiceService.DeleteInvoiceAsync(Id);
+        var IsDeleted = await _invoiceService.DeleteInvoiceAsync(id);
 
         return IsDeleted ? NoContent() : NotFound();
     }

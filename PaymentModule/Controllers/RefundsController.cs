@@ -5,6 +5,10 @@ namespace PaymentModule.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+
+/// <summary>
+/// Conroller to handle httprequest for Refund  
+/// </summary>
 public class RefundsController : ControllerBase
 {
     private readonly IRefundService _RefundService ;
@@ -31,7 +35,7 @@ public class RefundsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    [Route("getallRefunds")]
+    [Route("getallrefunds")]
     public async Task<IActionResult> GetAllRefundsAsync()
     {
         var ResponseList = await _RefundService.GetAllRefundsAsync();
@@ -44,10 +48,10 @@ public class RefundsController : ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost]
-    [Route("createRefund")]
-    public async Task<IActionResult> CreateRefundAsync(RefundRequestDTO RefundRequest)
+    [Route("createrefund")]
+    public async Task<IActionResult> CreateRefundAsync(RefundRequestDTO refundRequest)
     {
-        var Response = await _RefundService.CreateRefundAsync(RefundRequest);
+        var Response = await _RefundService.CreateRefundAsync(refundRequest);
 
         return Response == null ? BadRequest() : Ok(Response);
     }
@@ -58,12 +62,12 @@ public class RefundsController : ControllerBase
     /// <param name="RefundRequest"></param>
     /// <returns></returns>
     [HttpPut]
-    [Route("updateRefund/{id}")]
-    public async Task<IActionResult> UpdateRefundAsync(int id, RefundRequestDTO RefundRequest)
+    [Route("updaterefund/{id}")]
+    public async Task<IActionResult> UpdateRefundAsync(int id, RefundRequestDTO refundRequest)
     {
         if(!ModelState.IsValid)
             return NotFound();
-        var IsUpdated = await _RefundService.UpdateRefundAsync(id, RefundRequest);
+        var IsUpdated = await _RefundService.UpdateRefundAsync(id, refundRequest);
 
         return IsUpdated ? NoContent() : NotFound();
     }
@@ -72,7 +76,7 @@ public class RefundsController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     [HttpDelete]
-    [Route("deleteeRefund/{id}")]
+    [Route("deleteerefund/{id}")]
     public async Task<IActionResult> DeleteRefundAsync(int id)
     {
         var IsDeleted = await _RefundService.DeleteRefundAsync(id);

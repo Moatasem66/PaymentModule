@@ -7,7 +7,7 @@
 public class PaymentHistory
 {
     public int Id { get; set; }
-    public DateOnly ActionDate { get; set; }
+    public DateTime ActionDate { get; set; } = DateTime.UtcNow;
     public string Status { get; set; }
     public string Comment { get; set; }
     public int PaymentId {  get; set; }

@@ -8,7 +8,7 @@ public interface IInvoiceService
     /// </summary>
     /// <param name="Id"></param>
     /// <returns>InvoiceResponseDTO</returns>
-    Task<InvoiceResponseDTO?> GetInvoiceByIdAsync(int Id);
+    Task<InvoiceResponseDTO?> GetInvoiceByIdAsync(int id);
     /// <summary>
     /// method to get Invoice by DiscountId if not found return null 
     /// </summary>
@@ -25,18 +25,18 @@ public interface IInvoiceService
     /// </summary>
     /// <param name="InvoiceRequest"></param>
     /// <returns>invoiceResponseDTO</returns>
-    Task<InvoiceResponseDTO> CreateInvoiceAsync(InvoiceRequestDTO InvoiceRequest);
+    Task<InvoiceResponseDTO> CreateInvoiceAsync(InvoiceRequestDTO invoiceRequest);
     /// <summary>
     /// mehtod to update Invoice if not found invoice to update by this id  return false 
     /// </summary>
     /// <param name="Id"></param>
     /// <param name="InvoiceRequest"></param>
     /// <returns>bool</returns>
-    Task<bool> UpdateInvoiceAsync( int Id , InvoiceRequestDTO InvoiceRequest);
+    Task<bool> UpdateInvoiceAsync( int id , InvoiceRequestDTO invoiceRequest);
     /// <summary>
     /// mehtod to delete Invoice if not found invoice to delete by this id  return false 
     /// </summary>
     /// <param name="Id"></param>
     /// <returns>bool</returns>
-    Task<bool> DeleteInvoiceAsync( int Id );
+    Task<bool> DeleteInvoiceAsync( int id );
 }

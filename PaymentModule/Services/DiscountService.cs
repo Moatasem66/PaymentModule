@@ -6,7 +6,9 @@ using PaymentModule.DTOs.DiscountDTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace PaymentModule.Services;
-
+/// <summary>
+/// Service class responsible for managing discounts.
+/// </summary>
 public class DiscountService : IDiscountService
 {
     private readonly IMapper _mapper;
@@ -19,9 +21,9 @@ public class DiscountService : IDiscountService
     }
 
     /// <inheritdoc/>
-    public async Task<DiscountResponseDTO?> GetDiscountByIdAsync(int Id)
+    public async Task<DiscountResponseDTO?> GetDiscountByIdAsync(int id)
     {
-        var Response = await _context.Discounts.FindAsync(Id);
+        var Response = await _context.Discounts.FindAsync(id);
         return Response == null ? null : _mapper.Map<DiscountResponseDTO>(Response);
     }
     /// <inheritdoc/>
@@ -32,11 +34,11 @@ public class DiscountService : IDiscountService
         return _mapper.Map<List<DiscountResponseDTO>>(ResponseLst);
     }
     /// <inheritdoc/>
-    public async Task<DiscountResponseDTO> CreateDiscountAsync(DiscountRequestDTO DiscountRequest)
+    public async Task<DiscountResponseDTO> CreateDiscountAsync(DiscountRequestDTO discountRequest)
     {
         try
         {
-            var Discount = _mapper.Map<Discount>(DiscountRequest);
+            var Discount = _mapper.Map<Discount>(discountRequest);
 
             await _context.Discounts.AddAsync(Discount);
             await _context.SaveChangesAsync();
@@ -50,14 +52,14 @@ public class DiscountService : IDiscountService
         }
     }
     /// <inheritdoc/>
-    public async Task<bool> UpdateDiscountAsync(int Id, DiscountRequestDTO DiscountRequest)
+    public async Task<bool> UpdateDiscountAsync(int id, DiscountRequestDTO discountRequest)
     {
         try
         {
-            var CurrentDiscount = await _context.Discounts.FindAsync(Id);
+            var CurrentDiscount = await _context.Discounts.FindAsync(id);
             if (CurrentDiscount == null)
                 return false;
-            _mapper.Map(DiscountRequest, CurrentDiscount);
+            _mapper.Map(discountRequest, CurrentDiscount);
             await _context.SaveChangesAsync();
             return true;
         }
@@ -67,11 +69,11 @@ public class DiscountService : IDiscountService
         }
     }
     /// <inheritdoc/>
-    public async Task<bool> DeleteDiscountAsync(int Id)
+    public async Task<bool> DeleteDiscountAsync(int id)
     {
         try
         {
-            var CurrentDiscount = await _context.Discounts.FindAsync(Id);
+            var CurrentDiscount = await _context.Discounts.FindAsync(id);
             if (CurrentDiscount == null)
                 return false;
             _context.Discounts.Remove(CurrentDiscount);

@@ -4,9 +4,11 @@ using PaymentModule.Context;
 using PaymentModule.Entities;
 using PaymentModule.Contracts;
 using PaymentModule.DTOs.PaymentDTO;
-using PaymentModule.DTOs.InvoiceDTO;
-namespace PaymentModule.Services;
 
+namespace PaymentModule.Services;
+/// <summary>
+/// Service class responsible for managing discounts.
+/// </summary>
 public class PaymentService : IPaymentService
 {
     private readonly IMapper _mapper;

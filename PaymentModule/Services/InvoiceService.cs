@@ -7,7 +7,9 @@ using PaymentModule.DTOs.InvoiceDTO;
 using PaymentModule.Entities;
 
 namespace PaymentModule.Services;
-
+/// <summary>
+/// Service class responsible for managing discounts.
+/// </summary>
 public class InvoiceService : IInvoiceService
 {
     private readonly IMapper _mapper;

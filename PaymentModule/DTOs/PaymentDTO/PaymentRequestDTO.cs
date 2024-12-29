@@ -10,7 +10,7 @@ public class PaymentRequestDTO
 {
    
     [Required(ErrorMessage = "Payment date is required.")]
-    public DateOnly Date { get; set; } 
+    public DateTime Date { get; set; } 
 
     [Required(ErrorMessage = "Amount paid is required.")]
     [Range(1, double.MaxValue, ErrorMessage = "AmountPaid must be greater than 0.")]

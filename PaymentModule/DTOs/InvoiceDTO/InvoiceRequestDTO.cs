@@ -11,13 +11,16 @@ public class InvoiceRequestDTO
     [Required(ErrorMessage = "Status is required.")]
     public string Status { get; set; } = string.Empty;
 
+    [Required(ErrorMessage = "FinalAmount is Required")]
     [Range(1, double.MaxValue, ErrorMessage = "TotalAmount required and must be greater than 1.")]
     public decimal TotalAmount { get; set; }
+    [Required(ErrorMessage = "FinalAmount is Required")]
 
     [Range(1, double.MaxValue, ErrorMessage = "FinalAmount required and must be greater than 1.")]
     public decimal FinalAmount { get; set; }
 
-    [Range(1, int.MaxValue, ErrorMessage = "PatientId required and must be greater than 0.")]
+    [Required (ErrorMessage = "PatientId is Required")]
+    [Range(1, int.MaxValue, ErrorMessage = "PatientId  must be greater than 0.")]
     public int PatientId { get; set; }
 
     [Range(1, int.MaxValue, ErrorMessage = "DiscountId must be greater than 0.")]

@@ -6,7 +6,9 @@ using PaymentModule.Contracts;
 using PaymentModule.DTOs.PaymentDTO;
 using PaymentModule.DTOs.PaymentHistoryDTO;
 namespace PaymentModule.Services;
-
+/// <summary>
+/// Service class responsible for managing discounts.
+/// </summary>
 public class PaymentHistoryService : IPaymentHistoryService
 {
     private readonly IMapper _mapper;

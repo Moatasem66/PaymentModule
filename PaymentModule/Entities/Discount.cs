@@ -6,7 +6,7 @@
 public class Discount
 {
     public int Id { get; set; }
-    public string Desciption { get; set; }
+    public string Description { get; set; }
     public decimal Presentage { get; set; }
     public string Condation { get; set; }
     public int? InsurenceId { get; set; }

@@ -4,19 +4,16 @@ using PaymentModule.Context;
 using PaymentModule.DTOs.RefundDTO;
 using PaymentModule.Entities;
 using PaymentModule.Contracts;
-
 namespace PaymentModule.Services;
-
-public class RefundService : IRefundService
+/// <summary>
+/// Refund Service to handle all methods related to Refund Entity 
+/// </summary>
+/// <param name="mapper"></param>
+/// <param name="context"></param>
+public class RefundService(IMapper mapper, AppDbContext context) : IRefundService
 {
-    private readonly IMapper _mapper;
-    private readonly AppDbContext _context;
-
-    public RefundService(IMapper mapper, AppDbContext context)
-    {
-        _context = context;
-        _mapper = mapper;
-    }
+    private readonly IMapper _mapper = mapper;
+    private readonly AppDbContext _context = context;
 
     /// <inheritdoc/>
     public async Task<RefundResponseDTO?> GetRefundByIdAsync(int id)
@@ -38,8 +35,16 @@ public class RefundService : IRefundService
         {
             var Refund = _mapper.Map<Refund>(refundRequest);
 
-            await _context.Refunds.AddAsync(Refund);
-            await _context.SaveChangesAsync();
+            var CurrentInvoice = await _context.Invoices.FindAsync(refundRequest.InvoiceId);
+
+            if (CurrentInvoice != null)
+            {
+                await _context.Refunds.AddAsync(Refund);
+                await _context.SaveChangesAsync();
+                CurrentInvoice.TotalAmount -= refundRequest.Amount;
+            }
+
+
 
             return _mapper.Map<RefundResponseDTO>(Refund);
 
@@ -58,6 +63,14 @@ public class RefundService : IRefundService
             if (CurrentRefund == null)
                 return false;
 
+            var CurrentInvoice = await _context.Invoices.FindAsync(CurrentRefund.InvoiceId);
+            if (CurrentInvoice != null)
+                CurrentInvoice.TotalAmount += CurrentRefund.Amount;
+
+            var UpdatedInvoice = await _context.Invoices.FindAsync(refundRequest.InvoiceId);
+            if (UpdatedInvoice != null)
+                UpdatedInvoice.TotalAmount -= refundRequest.Amount;
+
             _mapper.Map(refundRequest, CurrentRefund);
             await _context.SaveChangesAsync();
             return true;
@@ -75,6 +88,11 @@ public class RefundService : IRefundService
             var CurrentRefund = await _context.Refunds.FindAsync(id);
             if (CurrentRefund == null)
                 return false;
+
+            var CurrentInvoice = await _context.Invoices.FindAsync(CurrentRefund.InvoiceId);
+            if (CurrentInvoice != null)
+                CurrentInvoice.TotalAmount += CurrentRefund.Amount;
+
             _context.Refunds.Remove(CurrentRefund);
             _context.SaveChanges();
             return true;

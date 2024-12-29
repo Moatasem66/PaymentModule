@@ -8,6 +8,10 @@ using PaymentModule.Services;
 namespace PaymentModule.Controllers;
 [Route("api/[controller]")]
 [ApiController]
+
+/// <summary>
+/// Conroller to handle httprequest for Invoice  
+/// </summary>
 public class PaymentsController : ControllerBase
 {
     private readonly IPaymentService _paymentService ;
@@ -35,7 +39,7 @@ public class PaymentsController : ControllerBase
     /// <param name="invoiceId"></param>
     /// <returns>List<PaymentResponse></returns>
     [HttpGet]
-    [Route("getPaymentbyinvoiceid")]
+    [Route("getpaymentbyinvoiceid")]
     public async Task<IActionResult> GetPaymentByInvoiceId(int invoiceId)
     {
         var Response = await _paymentService.GetPaymentByInvoiceIdAsync(invoiceId);
@@ -46,7 +50,7 @@ public class PaymentsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    [Route("getallPayments")]
+    [Route("getallpayments")]
     public async Task<IActionResult> GetAllPaymentsAsync()
     {
         var ResponseList = await _paymentService.GetAllPaymentsAsync();
@@ -59,7 +63,7 @@ public class PaymentsController : ControllerBase
     /// <param name="paymentRequest"></param>
     /// <returns></returns>
     [HttpPost]
-    [Route("createPayment")]
+    [Route("createpayment")]
     public async Task<IActionResult> CreatePaymentAsync(PaymentRequestDTO paymentRequest)
     {
         var Response = await _paymentService.CreatePaymentAsync(paymentRequest);
@@ -73,7 +77,7 @@ public class PaymentsController : ControllerBase
     /// <param name="Request"></param>
     /// <returns></returns>
     [HttpPut]
-    [Route("updatePayment/{id}")]
+    [Route("updatepayment/{id}")]
     public async Task<IActionResult> UpdatePaymentAsync(int id, PaymentRequestDTO paymentRequest)
     {
         var IsUpdated = await _paymentService.UpdatePaymentAsync(id , paymentRequest);
